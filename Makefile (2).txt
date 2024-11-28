@@ -1,0 +1,29 @@
+CFLAGS = -g -Wno-unused-parameter
+CC = gcc
+
+PROGRAMS =   main_ecosys ecosys
+
+.PHONY:	all clean
+
+all: $(PROGRAMS)
+
+ecosys: ecosys.o main_ecosys.o
+	$(CC) -o $@ $(CFLAGS) $^
+
+main_ecosys: ecosys.o main_ecosys.o
+	$(CC) -o $@ $(CFLAGS) $^
+
+ecosys.o: ecosys.c
+	gcc $(CFLAGS) -c ecosys.c
+
+main_ecosys.o: main_ecosys.c
+	gcc $(CFLAGS) -c main_ecosys.c
+	
+
+#Ou plus simplement
+#%.o:%.c %.h
+#	$(CC)  $(GCC_FLAGS) -c  $<
+
+
+clean:
+	rm -f *.o *~ $(PROGRAMS)
